@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import nodeExternals from 'webpack-node-externals';
 
 const config: webpack.Configuration = {
   name: 'Server',
@@ -9,6 +10,7 @@ const config: webpack.Configuration = {
     path: path.resolve(__dirname, './server/build'),
     filename: 'bundle.js'
   },
+  node: { __dirname: false },
   module: {
     rules: [
       {
@@ -21,6 +23,8 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.json'],
   },
+  externalsPresets: { node: true }, // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()],
 };
 
 export default config;

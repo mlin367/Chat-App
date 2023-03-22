@@ -8,8 +8,12 @@ const DEFAULT_PORT = 8080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'))
-})
+app.use(express.static(path.resolve(__dirname, '../../client/dist')));
 
-app.listen(DEFAULT_PORT, () => console.log(`app is listening on port ${DEFAULT_PORT}`));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../client/dist/index.html'));
+});
+
+app.listen(DEFAULT_PORT, () =>
+  console.log(`app is listening on port ${DEFAULT_PORT}`)
+);

@@ -4,7 +4,7 @@ import webpack from 'webpack';
 const config: webpack.Configuration = {
   name: 'Client',
   mode: 'development',
-  entry: path.resolve(__dirname, './client'),
+  entry: path.resolve(__dirname, './client/index.tsx'),
   output: {
     path: path.resolve(__dirname, './client/dist'),
     filename: 'bundle.js'
