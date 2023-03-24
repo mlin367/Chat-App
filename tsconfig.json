@@ -22,7 +22,7 @@
   "include": [
     "client/components",
     "server/src",
-    "shared/src", "client/index.tsx",
+    "shared", "client/index.tsx",
   ],
   "files": [
     "webpack-client.config.ts",

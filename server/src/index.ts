@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { Server } from 'socket.io';
 
+import { Message } from '../../shared/interfaces';
+
 const app = express();
 const DEFAULT_PORT = 8080;
 
@@ -21,12 +23,18 @@ const server = app.listen(DEFAULT_PORT, () =>
 
 const io = new Server(server);
 
+let userCount = 0;
+
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log(`socket ${socket.id} connected`);
 
-  socket.on('disconnect', () => console.log('a user disconnected'));
+  socket.emit('username', `user-${++userCount}`);
 
-  socket.on('chat message', (msg: string) => {
+  socket.on('disconnect', () => {
+    console.log(`socket ${socket.id} disconnected`);
+  });
+
+  socket.on('chat message', (msg: Message) => {
     io.emit('chat message', msg);
   });
 });
